@@ -5,8 +5,8 @@ dataset/
 images/
 
 # Dashboard screenshots
-notebooks/img/
 notebooks/Dashboard.pbix
+
 # Jupyter checkpoints
 .ipynb_checkpoints/
 notebooks/.ipynb_checkpoints/
