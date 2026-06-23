@@ -1,282 +1,215 @@
 # Olist Insights: Brazilian E-Commerce Intelligence Dashboard
 
 ## Project Overview
+Olist Insights is an end-to-end Data Analytics and Business Intelligence project built on the Brazilian Olist e-commerce dataset. The project combines SQL, Python, Power BI, and Machine Learning to analyze sales performance, logistics efficiency, customer satisfaction, and review behavior across more than 100,000 marketplace orders.
 
-Olist Insights is an end-to-end Business Intelligence and Predictive Analytics project built using the Brazilian Olist E-Commerce dataset.
+The goal was to transform raw transactional data into actionable business insights while also building a predictive model capable of identifying potentially dissatisfied customers.
 
-The project combines Data Cleaning, SQL Analysis, Exploratory Data Analysis (EDA), Machine Learning, and Interactive Power BI Dashboards to transform raw marketplace data into actionable business insights.
+## Business Problem
 
-The dashboard enables stakeholders to analyze sales performance, operational efficiency, customer experience, and review prediction outcomes across multiple business dimensions such as time, state, category, and delivery performance.
+The Olist marketplace generates large volumes of transactional, customer, seller, payment, logistics, and review data.
 
----
-
-## Objectives
-
-- Analyze revenue, orders, customers, and product category performance.
-- Monitor logistics and delivery efficiency.
-- Understand customer review behavior and satisfaction patterns.
-- Predict the likelihood of negative customer reviews using Machine Learning.
-- Provide decision-support insights through an interactive Power BI dashboard.
-
----
+Key business questions:
+- Which categories generate the highest revenue?
+- Which states contribute most to marketplace performance?
+- How reliable is the delivery network?
+- What factors influence customer reviews?
+- Can negative customer experiences be predicted before reviews are submitted?
 
 ## Dataset
 
-**Source:** Olist Brazilian E-Commerce Dataset
-
-Kaggle Dataset:
-https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-
-### Data Coverage
-- Jan 2016 – Dec 2018
-- 100K+ Orders
-- Multiple business entities:
-  - Customers
-  - Orders
-  - Payments
-  - Products
-  - Sellers
-  - Items
-  - Reviews
-  - Geolocation
-  - Category
-
-### Project Data Structure
-
-- Raw datasets stored in:
-  ```
-  Olist/dataset/
-  ```
-
-- Cleaned and transformed datasets stored in:
-  ```
-  Olist/dataset/clean/
-  ```
-
----
-
-# Technology Stack
-
-### Data Processing
-- Python
-- Pandas
-- NumPy
-
-### Database
-- PostgreSQL
-- SQL
-
-### Data Visualization
-- Power BI
-
-### Machine Learning
-- Scikit-Learn
-- XGBoost
-
-### Development Environment
-- Jupyter Notebook
-
----
-
-# Project Workflow
-
-### 1. Data Cleaning & Preparation
-
-- Loaded and validated multiple Olist tables.
-- Removed inconsistencies and handled missing values.
-- Standardized data types and date formats.
-- Created analytical datasets for dashboarding and ML modeling.
-
-### 2. Exploratory Data Analysis
-
-- Revenue trend analysis
-- Order volume analysis
-- Product category performance
-- State-wise marketplace analysis
-- Customer review exploration
-- Delivery performance evaluation
-
-### 3. Dashboard Development
-
-Built a multi-page Power BI dashboard covering:
-
-- Business Overview
-- Operations & Logistics
-- Customer Experience & Reviews
-- Predictive Analytics
-
-### 4. Machine Learning
-
-Developed a review-risk prediction model to identify customers likely to leave low ratings.
-
-Models evaluated:
-
-- Logistic Regression
-- Random Forest
-- XGBoost
-
-Final model selected:
-
-**XGBoost**
-
----
-
-# Dashboard Pages
-
----
-
-## Landing Page
-
-Provides project introduction, scope, dataset coverage, and navigation across dashboard modules.
-
-![Landing Page](notebooks/img/1.png)
-
----
-
-## Overview Dashboard
-
-The Overview page provides a high-level business summary of marketplace performance.
-
-### Key Metrics
-
-- Total Revenue
-- Total Orders
-- Total Customers
-- Average Review Score
-
-### Business Analysis
-
-- Monthly Revenue Trend
-- Top Product Categories by Revenue
-- Top States by Revenue
-
-### Insights Generated
-
-- Revenue growth patterns across time.
-- Best-performing product categories.
-- Highest contributing states.
-- Marketplace sales concentration analysis.
-
-![Overview Dashboard](notebooks/img/2.png)
-
----
-
-## Operations Dashboard
-
-The Operations dashboard focuses on logistics performance and order fulfillment efficiency.
-
-### Key Metrics
-
-- Total Orders
-- Orders Delivered
-- On-Time Delivery %
-- Average Delivery Days
-- Late Orders
-
-### Operational Analysis
-
-- Orders vs On-Time Delivery Trend
-- Delivery Status Distribution
-- State-wise Delivery Performance
-
-### Business Insights
-
-- Identifies regions with strong delivery performance.
-- Highlights delivery bottlenecks.
-- Measures logistics efficiency across time.
-- Tracks fulfillment consistency.
-
-### Impact
-
-Provides operational visibility for improving customer experience through better delivery performance.
-
-![Operations Dashboard](notebooks/img/3.png)
-
----
-
-## Experience & Predictive Analytics Dashboard
-
-This page combines customer satisfaction analysis with machine learning-driven review prediction.
-
-### Customer Experience Metrics
-
-- Average Review Score
-- Total Reviews
-- 5-Star Review Percentage
-- Low Rating Percentage
-
-### Customer Review Analysis
-
-- Review Trend Over Time
-- Rating Distribution (1–5 Stars)
-
-### Predictive Analytics
-
-A binary classification model was developed to predict negative customer review risk using operational and transaction-related features.
-
-### Final Model Performance
+Source: Olist Brazilian E-Commerce Dataset (Kaggle)
+
+Raw dataset location:
+Olist/dataset/
+
+Cleaned datasets:
+Olist/dataset/clean/
+
+The project integrates Orders, Customers, Sellers, Products, Reviews, Payments and Geolocation tables.
+
+## Technology Stack
+
+| Category | Tools |
+|-----------|--------|
+| Database | PostgreSQL |
+| Querying | SQL |
+| Analysis | Python |
+| Libraries | Pandas, NumPy, Matplotlib, Scikit-learn, XGBoost |
+| BI & Visualization | Power BI |
+| Machine Learning | Logistic Regression, Random Forest, XGBoost |
+| Version Control | Git, GitHub |
+| Environment | Jupyter Notebook |
+
+## Detailed Project Workflow
+
+### 1. Data Understanding
+- Studied relationships across seven business tables.
+- Mapped customer journey from purchase to review.
+- Examined order lifecycle and delivery process.
+
+### 2. Data Cleaning & Transformation
+- Missing value handling
+- Data type corrections
+- Date conversions
+- Duplicate validation
+- Revenue calculations
+- Delivery KPI generation
+- Feature engineering
+
+### 3. Exploratory Data Analysis
+- Revenue trends
+- Order volume trends
+- Category performance
+- Review behavior
+- Delivery efficiency
+- Regional performance
+
+### 4. Dashboard Development
+
+#### Data Modeling
+Fact Tables:
+- Orders
+- Reviews
+- Payments
+
+Dimension Tables:
+- Customers
+- Sellers
+- Products
+- Geography
+- Date Table
+
+DAX measures were created for revenue, orders, customers, reviews and delivery KPIs.
+
+### 5. Machine Learning
+
+#### Objective
+Predict whether an order is likely to receive a negative customer review using operational and transactional features.
+
+#### Model Comparison
+
+| Model | Recall | F1 Score | ROC-AUC |
+|---------|---------|---------|---------|
+| Logistic Regression | 0.11 | 0.19 | 0.699 |
+| Random Forest | 0.28 | 0.39 | 0.726 |
+| XGBoost | **0.28** | **0.40** | **0.747** |
+
+#### Final Model
+XGBoost
 
 | Metric | Score |
 |----------|----------|
-| Model | XGBoost |
 | ROC-AUC | 74.7% |
 | F1 Score | 0.40 |
 | Recall | 28% |
 
-### Business Value
+### Limitations
+Customer dissatisfaction depends on factors not present in the dataset:
+- Product quality
+- Packaging condition
+- Seller communication
+- Customer expectations
+- Review text
+- Product images
 
-- Early identification of dissatisfied customers.
-- Better customer retention planning.
-- Improved seller performance monitoring.
-- Reduction of negative review risk.
-- Data-driven decision making for customer experience teams.
+The model predicts dissatisfaction using only operational and transactional data, which explains the lower recall.
 
-### Key Finding
+## SQL Analysis
 
-More than half of all customer reviews were rated 5 stars, indicating generally strong customer satisfaction across the marketplace.
+Used:
+- JOINs
+- CTEs
+- GROUP BY
+- CASE statements
+- Window Functions
+- Ranking Functions
 
+## Dashboard Walkthrough
+
+### Home Page
+![Home Dashboard](notebooks/img/1.png)
+
+### Overview Dashboard
+![Overview Dashboard](notebooks/img/2.png)
+
+Focus:
+- Revenue
+- Orders
+- Customers
+- Revenue trends
+- Top categories
+- Top states
+
+Key Insight:
+Revenue is concentrated in a few product categories and major states, with São Paulo contributing the highest share.
+
+### Operations Dashboard
+![Operations Dashboard](notebooks/img/3.png)
+
+Focus:
+- Delivery performance
+- On-time delivery
+- Delivery status distribution
+- State-wise logistics performance
+
+Key Insight:
+96% of orders were successfully delivered with an average delivery time close to 12 days.
+
+### Experience Dashboard
 ![Experience Dashboard](notebooks/img/4.png)
 
----
+Focus:
+- Review behavior
+- Rating distribution
+- Customer satisfaction
+- Predictive analytics
 
-# Machine Learning Summary
+Key Insight:
+58% of reviews are 5-star ratings while low-rated reviews account for roughly 15% of total reviews.
 
-### Problem Statement
+## Dashboard Demo
 
-Predict whether an order is likely to receive a poor customer review.
+Video walkthrough:
 
-### Models Compared
+notebooks/img/dashboard_demo.mp4
 
-| Model | ROC-AUC |
-|---------|---------|
-| Logistic Regression | 0.699 |
-| Random Forest | 0.726 |
-| XGBoost | 0.747 |
+## Business Impact
 
-### Final Selection
+- Track marketplace growth
+- Monitor operational efficiency
+- Understand customer satisfaction
+- Identify high-performing regions
+- Detect dissatisfaction earlier
 
-XGBoost achieved the highest ROC-AUC score and was selected as the final model.
+## Key Findings
 
-### Why This Matters
+- Health & Beauty generated the highest revenue.
+- Top 10 categories contribute approximately 72% of revenue.
+- São Paulo contributes the largest share of revenue.
+- Average customer review remains above 4 stars.
+- Approximately 58% of reviews are 5-star ratings.
+- Delivery performance strongly influences customer experience.
 
-The model enables proactive identification of potentially dissatisfied customers before reviews are submitted, helping businesses improve customer experience and reduce churn risk.
+## Future Improvements
 
----
+- Review text sentiment analysis
+- SHAP feature importance
+- Seller history features
+- Customer history features
+- Improved recall using richer features
+- Power BI Service deployment
 
-# Key Outcomes
+## Final Business Conclusions
 
-- Built an end-to-end Business Intelligence solution.
-- Processed and analyzed 100K+ e-commerce transactions.
-- Created interactive Power BI dashboards for business stakeholders.
-- Performed customer review analytics.
-- Developed and evaluated predictive machine learning models.
-- Generated actionable insights across sales, operations, and customer experience.
+The Olist marketplace demonstrates strong operational performance, high delivery success rates and positive customer satisfaction.
 
----
+Revenue remains concentrated among a small number of categories and regions, while the predictive model achieved a respectable ROC-AUC of 74.7%, providing a useful foundation for future customer satisfaction prediction systems.
 
 ## Author
 
-**Rutuja**
+Rutuja
 
-Computer Engineering Student  
-Data Analytics | Business Intelligence | Machine Learning
+Computer Engineering Student
+
+Built using SQL, Python, Power BI and Machine Learning.
